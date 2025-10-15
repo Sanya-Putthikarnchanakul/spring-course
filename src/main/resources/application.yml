@@ -1,3 +1,13 @@
 spring:
   application:
     name: course
+
+validation:
+  product:
+    regex: ^[a-zA-Z0-9-]*$
+
+product:
+  seasonal:
+    campaign-name: Winter Sales
+    ids-price-drop: [2,4,6,8,10]
+    drop-percent: 10
