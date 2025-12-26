@@ -1,0 +1,67 @@
+<configuration scan="true">
+
+    <!-- Environment -->
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name"/>
+    <springProperty scope="context" name="ENV" source="spring.profiles.active"/>
+
+    <!-- Log file location monitored by Dynatrace OneAgent -->
+    <property name="LOG_PATH" value="/Users/11411360/Desktop/log"/>
+
+    <!-- JSON Appender -->
+    <appender name="JSON_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${APP_NAME}.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APP_NAME}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>14</maxHistory>
+        </rollingPolicy>
+
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+
+                <!-- Timestamp -->
+                <timestamp>
+                    <fieldName>timestamp</fieldName>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+
+                <!-- Log level -->
+                <logLevel>
+                    <fieldName>level</fieldName>
+                </logLevel>
+
+                <!-- Logger -->
+                <loggerName>
+                    <fieldName>logger</fieldName>
+                </loggerName>
+
+                <!-- Thread -->
+                <threadName>
+                    <fieldName>thread</fieldName>
+                </threadName>
+
+                <!-- Message -->
+                <message/>
+
+                <!-- Stacktrace -->
+                <stackTrace>
+                    <fieldName>exception</fieldName>
+                </stackTrace>
+
+                <!-- MDC (important for Dynatrace correlation) -->
+                <mdc/>
+
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- Root logger -->
+    <root level="INFO">
+        <appender-ref ref="JSON_FILE"/>
+    </root>
+
+    <!-- Reduce noise -->
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.hibernate" level="WARN"/>
+
+</configuration>
