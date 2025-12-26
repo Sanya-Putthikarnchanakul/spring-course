@@ -1,6 +1,6 @@
 spring:
   application:
-    name: logback
+    name: thread
   profiles:
     active: dev
 

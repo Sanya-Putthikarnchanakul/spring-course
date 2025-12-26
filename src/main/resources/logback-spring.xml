@@ -51,6 +51,11 @@
                 <!-- MDC (important for Dynatrace correlation) -->
                 <mdc/>
 
+                <!-- Custom static fields -->
+                <globalCustomFields>
+                    {"service":"${APP_NAME}","environment":"${ENV}"}
+                </globalCustomFields>
+
             </providers>
         </encoder>
     </appender>
@@ -63,5 +68,6 @@
     <!-- Reduce noise -->
     <logger name="org.springframework" level="WARN"/>
     <logger name="org.hibernate" level="WARN"/>
+    <logger name="org.apache" level="WARN"/>
 
 </configuration>
