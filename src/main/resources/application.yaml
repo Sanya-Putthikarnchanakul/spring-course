@@ -9,3 +9,6 @@ management:
     web:
       exposure:
         include: health,info,metrics
+
+file:
+  path: /Users/11411360/Desktop/log/thread/db.json
